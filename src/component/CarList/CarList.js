@@ -1,17 +1,13 @@
-import styled from "styled-components";
-
+// import redux hooks
 import { useDispatch, useSelector } from "react-redux";
+// import actions
 import { removeCar } from "../../store";
+
 function CarList() {
     // get dispatch for redux
     const dispatch = useDispatch();
 
-    // get states from redux
-
-    const carss = useSelector(({ form, cars: { data, searchTerm } }) => {
-        return { data };
-    });
-
+    // destructing cars , name from store with conditions
     const { cars, name } = useSelector(
         ({ form, cars: { data, searchTerm } }) => {
             const filtredCars = data.filter((car) =>
@@ -28,13 +24,20 @@ function CarList() {
         dispatch(removeCar(car.id));
     };
 
+    // this constant to hold the mapping data around cars
     const renderedCars = cars.map((car, idx) => {
+        // this bold variable to check if the item is on the data ,
+        // so if the item waas in our data state already
+        // bold will be true , so we can use this result in the UI later
+        // and make the diplucate item looking bold
         const bold =
             name && car.name.toLowerCase().includes(name.toLowerCase());
+        // this to make first letter capital
+        const carName = car?.name.charAt(0).toUpperCase() + car.name.slice(1);
         return (
-            <div key={car.id} className={`panel ${bold && 'bold'}`}>
+            <div key={car.id} className={`panel ${bold && "bold"}`}>
                 <div>
-                    {car.name} - {car.cost}
+                    {carName} - {car.cost}
                 </div>
                 <button
                     className="button is-danger"
@@ -46,37 +49,7 @@ function CarList() {
         );
     });
 
-    return (
-        <div className="car-list">
-            {/* <NavCenter className="card"> */}
-            {renderedCars}
-            {/* </NavCenter> */}
-        </div>
-    );
+    return <div className="car-list">{renderedCars}</div>;
 }
-const NavCenter = styled.nav`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
-
-const CarItem = styled.div`
-    display: flex;
-    background: #a0cfa0;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
-    margin: 0.5rem;
-    width: 38.5%;
-    button {
-        background: #f17c7cc1;
-        border: none;
-        width: 1.5rem;
-        height: 1.5rem;
-        &:hover {
-            background: #f03939c1;
-        }
-    }
-`;
 
 export default CarList;

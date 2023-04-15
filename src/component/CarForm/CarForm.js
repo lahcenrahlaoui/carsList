@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
-
-import styled from "styled-components";
-
+// import redux hooks
 import { useDispatch, useSelector } from "react-redux";
+// import actions
 import { addCar, changeName, changeCost } from "../../store";
 
 function CarForm() {
     // get dispatch for redux
     const dispatch = useDispatch();
 
-    // get states from redux
+    // destructing states from store using useSelector
+    // state.form.name , state.form.cost
     const { name, cost } = useSelector((state) => state.form);
 
     const handleNameChange = (e) => {
@@ -19,12 +18,12 @@ function CarForm() {
         dispatch(changeCost(parseInt(e.target.value)));
     };
 
+    // this function to save data
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(name && cost){
+        if (name && cost) {
             dispatch(addCar({ name, cost }));
         }
-        
     };
 
     return (
@@ -50,7 +49,7 @@ function CarForm() {
                         />
                     </div>
                 </div>
-                <button className="button is-link">add</button>
+                <button className="button is-link">Add</button>
             </form>
         </div>
     );

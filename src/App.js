@@ -1,3 +1,4 @@
+// import all components tha we need in the first page
 import CarForm from "./component/CarForm/CarForm";
 import CarSearch from "./component/CarSearch/CarSearch";
 import CarList from "./component/CarList/CarList";
@@ -6,10 +7,10 @@ import CarsValue from "./component/CarsValue/CarsValue";
 function App() {
     return (
         <div className="container is-fluid">
-            <CarForm/>
+            <CarForm />
             <CarSearch />
-             <CarList/>
-             <CarsValue/>
+            <CarList />
+            <CarsValue />
         </div>
     );
 }
